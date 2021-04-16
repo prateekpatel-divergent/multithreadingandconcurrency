@@ -43,9 +43,9 @@ public class VolatileKeywordUsed {
 
 	public static void main(String[] args) throws InterruptedException {
 		VolatileData data = new VolatileData();
-		VolatileThread thread = new VolatileThread(data);
+		VolatileThread t1 = new VolatileThread(data);
 		for (int i = 0; i < 2; i++) {
-			thread.start();
+			t1.start();
 		}
 	}
 

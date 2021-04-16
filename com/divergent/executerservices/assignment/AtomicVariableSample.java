@@ -1,20 +1,26 @@
 package com.divergent.executerservices.assignment;
 
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
 /**
- * Counter class for count increament by 1
+ * Counter class for count increament by 1 and Atomic interger used
  * 
  * @author Divergent
  *
  */
 class Counter extends Thread {
-	int count = 0;
+
+	AtomicInteger atomicInt;
+
+	public Counter() {
+		atomicInt = new AtomicInteger();
+	}
 
 	public void run() {
-		int max = 1;
+		int max = 1000;
 		for (int i = 0; i < max; i++) {
-			count++;
+			atomicInt.addAndGet(max);
 		}
 	}
 }
@@ -33,20 +39,12 @@ public class AtomicVariableSample {
 		Counter c = new Counter();
 		Thread t1 = new Thread(c, "First");
 		Thread t2 = new Thread(c, "Second");
-		Thread t3 = new Thread(c, "Third");
-		Thread t4 = new Thread(c, "Fourth");
 
 		t1.start();
 		t2.start();
-		t3.start();
-		t4.start();
-
 		t1.join();
 		t2.join();
-		t3.join();
-		t4.join();
-
-		LOGGER.info("Counter is " + c.count);
+		LOGGER.info("Atomic Counter is : " + c.atomicInt);
 	}
 
 }
